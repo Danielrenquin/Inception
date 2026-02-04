@@ -7,10 +7,10 @@ The purpose of this project was to build a reproducible and isolated environment
 
 # Containerized vs Virtualized
 
-**Virtualization** allows running multiple virtual machines on the same server. 
+Virtualization: allows running multiple virtual machines on the same server. 
 Each VM behaves as an independent computer, with its own resources and operating system.
 
-**Containerization** is different: each container runs one or more processes, and while containers are isolated, they share the same operating system. 
+Containerization: is different: each container runs one or more processes, and while containers are isolated, they share the same operating system. 
 This makes containers lighter to deploy and faster to start than virtual machines.
 
 ---
@@ -19,6 +19,7 @@ This makes containers lighter to deploy and faster to start than virtual machine
 
 In this project, AI was useful specifically for configuring the `.conf` files and for working with some Bash commands that I had never used before.
 It helped me understand how to approach the project efficiently and structure the multi-service environment correctly.
+
 ---
 
 # Sources
