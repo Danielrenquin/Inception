@@ -19,15 +19,26 @@ MYSQL_PID=$!
 
 # Attendre que MariaDB soit prêt
 echo "Waiting for MariaDB to start..."
-until mysqladmin ping --silent; do
+until mysqladmin ping --silent >/dev/null 2>&1; do
     sleep 1
 done
 echo "MariaDB is ready"
 
+# Déterminer comment se connecter en root (avec ou sans mot de passe)
+ROOT_AUTH=""
+if mysql -u root -e "SELECT 1;" >/dev/null 2>&1; then
+    ROOT_AUTH=""
+elif mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "SELECT 1;" >/dev/null 2>&1; then
+    ROOT_AUTH="-p${MYSQL_ROOT_PASSWORD}"
+else
+    echo "Unable to authenticate as root. Check MYSQL_ROOT_PASSWORD." >&2
+    exit 1
+fi
+
 # Créer la base de données et les utilisateurs si la base n'existe pas
-if ! mysql -u root -e "USE ${MYSQL_DATABASE};" 2>/dev/null; then
+if ! mysql -u root ${ROOT_AUTH} -e "USE ${MYSQL_DATABASE};" 2>/dev/null; then
     echo "Creating database and users..."
-    mysql -u root <<-EOSQL
+    mysql -u root ${ROOT_AUTH} <<-EOSQL
         -- Sécuriser l'installation
         DELETE FROM mysql.user WHERE User='';
         DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -56,7 +67,7 @@ else
 fi
 
 # Arrêter le processus temporaire
-mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
+mysqladmin -u root ${ROOT_AUTH} shutdown
 wait $MYSQL_PID 2>/dev/null || true
 
 echo "MariaDB initialization complete"
