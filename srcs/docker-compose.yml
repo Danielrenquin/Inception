@@ -26,6 +26,8 @@ services:
       - inception
     volumes:
       - wordpress_data:/var/www/html
+    depends_on:
+      - maria_db
     restart: unless-stopped
 
   maria_db:

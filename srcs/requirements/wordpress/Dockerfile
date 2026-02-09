@@ -1,6 +1,5 @@
 FROM debian:12.13-slim
 
-# Install PHP and necessary extensions
 RUN apt-get update && apt-get install -y \
     php-fpm \
     php-mysql \
