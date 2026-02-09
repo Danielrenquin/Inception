@@ -24,4 +24,4 @@ It helped me understand how to approach the project efficiently and structure th
 
 # Sources
 
-YouTube ([EvoluNoob], [Korben], [NetworkChuck], [Articulated Robotics]), OpenClassrooms, [nginx.org](https://nginx.org/), [hub.docker.com](https://hub.docker.com/)
+YouTube ([EvoluNoob], [Korben], [NetworkChuck], [Articulated Robotics]), OpenClassrooms, [nginx.org](https://nginx.org/), [hub.docker.com](https://hub.docker.com/), www.php.net, https://mariadb.com 

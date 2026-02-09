@@ -89,4 +89,3 @@ The requirements directory contains one subdirectory per service. Each service d
                 defines the datadir and socket paths, configures basic
                 performance limits, enables error logging, and enforces the
                 utf8mb4 character set for full Unicode support.
-
