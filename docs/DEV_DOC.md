@@ -96,7 +96,7 @@ The requirements directory contains one subdirectory per service. Each service d
 
 # Some technical comparaison
 
-##Virtual Machine vs Containerization
+/*Virtual Machine vs Containerization*/
 
 
 
@@ -111,3 +111,4 @@ The requirements directory contains one subdirectory per service. Each service d
 
 
   
+
