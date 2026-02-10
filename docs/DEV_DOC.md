@@ -94,23 +94,6 @@ The requirements directory contains one subdirectory per service. Each service d
 
   ---
 
-# Some technical comparaison
-
-/*Virtual Machine vs Containerization*/
-
--Virtual Machine :  A virtual machine runs its own independent operating system
-                    and uses resources allocated from the host machine. 
-                    It behaves like a fully independent computer inside the host. 
-                    Because it requires its own boot process, 
-                    starting a virtual machine is relatively slow.
-
--Containerization : Containerization allows applications to run as isolated units
-                    while sharing the host operating system. 
-                    Since containers do not require a full OS boot process, 
-                    they start much faster than virtual machines.
-
-/*Secrets vs Environment Variable*/
-
 
 
 
@@ -123,5 +106,6 @@ The requirements directory contains one subdirectory per service. Each service d
 
 
   
+
 
 
