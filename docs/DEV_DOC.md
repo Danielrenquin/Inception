@@ -69,6 +69,8 @@ The requirements directory contains one subdirectory per service. Each service d
 
 - www.conf: Defines a PHP-FPM pool (a group of PHP worker processes) with
             a minimal configuration for this project.
+  
+---
 
 # mariadb
 
@@ -89,3 +91,23 @@ The requirements directory contains one subdirectory per service. Each service d
                 defines the datadir and socket paths, configures basic
                 performance limits, enables error logging, and enforces the
                 utf8mb4 character set for full Unicode support.
+
+  ---
+
+# Some technical comparaison
+
+##Virtual Machine vs Containerization
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
