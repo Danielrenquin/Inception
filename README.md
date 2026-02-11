@@ -1,45 +1,54 @@
-*This project has been created as part of the 42 curriculum by daniel.*
-
 # Inception
 
-## Description
-Inception is a system administration project that builds a small, production‑like stack using Docker. The infrastructure is composed of three services: Nginx (TLS reverse proxy), WordPress (PHP‑FPM), and MariaDB (database). Each service runs in its own container and communicates over a private Docker network.
+A multi-service containerized project using Docker. It deploys three modern services: Nginx as a reverse proxy, MariaDB as the database, and WordPress as the frontend application.  
+The purpose of this project was to build a reproducible and isolated environment. Each service runs in its own container, and they are connected to form a reverse proxy architecture, reflecting a production-like setup.
 
-## Instructions
-### Prerequisites
-- Docker and Docker Compose installed
-- A Linux VM (as required by the subject)
-- The domain name mapped to your local IP (e.g., in /etc/hosts)
+---
 
-### Build and run
-- Build and start: make all
-- Stop containers: make down
-- Stop and remove containers + volumes: make clean
-- Full cleanup (containers, images, volumes): make fclean
+# Containerized vs Virtualized
 
-### Access
-- Website: https://daniel.42.fr
-- WordPress admin panel: https://daniel.42.fr/wp-admin
+Virtualization: allows running multiple virtual machines on the same server. 
+Each VM behaves as an independent computer, with its own resources and operating system.
 
-## Project Description
-### Use of Docker
-This project uses Docker to isolate services, ensure reproducibility, and simplify deployment. Each service has its own Dockerfile and is orchestrated by Docker Compose. Persistent data is stored in named volumes placed under /home/daniel/data.
+Containerization: is different: each container runs one or more processes, and while containers are isolated, they share the same operating system. 
+This makes containers lighter to deploy and faster to start than virtual machines.
 
-### Main design choices
-- Separate containers for Nginx, WordPress (PHP‑FPM), and MariaDB
-- Private bridge network for internal service communication
-- TLS‑only entrypoint on port 443
-- Secrets stored outside the repository and injected via Docker secrets
+# Secret Vs Environment Variables
 
-### Comparisons
-- Virtual Machines vs Docker: VMs run full OS instances and are heavier; containers share the host kernel and start faster while remaining isolated.
-- Secrets vs Environment Variables: Secrets are designed for sensitive data and are not exposed in container inspection; environment variables are convenient but less secure for passwords.
-- Docker Network vs Host Network: Docker networks isolate traffic and allow service discovery; host networking removes isolation and increases risk.
-- Docker Volumes vs Bind Mounts: Volumes are managed by Docker and portable; bind mounts depend on host paths and are less portable.
+Secret: are designed to store sensitive data such as passwords or API keys. 
+        They are handled separately from application configuration and are not directly exposed 
+        in the container environment. Secrets provide a higher level of security by limiting 
+        visibility and access to critical information.
 
-## Resources
-- Official docs: https://docs.docker.com, https://nginx.org, https://mariadb.com, https://wordpress.org
-- Community references: OpenClassrooms, NetworkChuck
+Environment Variables: are configuration values defined in a .env file and injected into containers at runtime.
+                       They are commonly used to configure application behavior (database name, user, ports, etc.).
+                       While convenient and widely supported, environment variables can be exposed 
+                       through container inspection and are therefore less secure for highly sensitive data.
 
-### AI usage
-AI was used to review configuration files, improve documentation structure, and check Docker best practices. All suggestions were verified and adapted manually.
+# Docker Network vs Host Network
+
+Docker Network: Provides isolation between containers and allows controlled communication
+                using internal DNS and service names. Improves security and portability.
+
+Host Network: Containers share the host’s network stack, offering better performance
+              but reduced isolation and higher security risks.
+
+# Docker Volumes vs Bind Mounts
+
+Docker Volumes: Managed by Docker and stored in a dedicated area. 
+                They are portable, easier to back up, and safer for persistent data.
+Bind Mounts: Map a host directory directly into a container. 
+             Useful for development but less portable and more dependent on host filesystem structure.
+
+---
+
+# Use of AI
+
+In this project, AI was useful specifically for configuring the `.conf` files and for working with some Bash commands that I had never used before.
+It helped me understand how to approach the project efficiently and structure the multi-service environment correctly.
+
+---
+
+# Sources
+
+YouTube ([EvoluNoob], [Korben], [NetworkChuck], [Articulated Robotics]), OpenClassrooms, [nginx.org](https://nginx.org/), [hub.docker.com](https://hub.docker.com/), www.php.net, https://mariadb.com 

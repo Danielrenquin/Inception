@@ -1,29 +1,26 @@
-# User Documentation
+Presentation
 
-## Services provided
-- Nginx: HTTPS reverse proxy (port 443)
-- WordPress: website application (PHP‑FPM)
-- MariaDB: database backend
+This repository provides a basic setup for running a WordPress website using Docker.
 
-## Start and stop
-- Start: make all
-- Stop: make down
+---
 
-## Access the website
-1. Map the domain to your local IP (example in /etc/hosts):
-   127.0.0.1 daniel.42.fr
-2. Open https://daniel.42.fr
+#Prerequisites
 
-## Access the admin panel
-Open https://daniel.42.fr/wp-admin and log in with the WordPress admin account.
+To use this project, you will need:
 
-## Credentials management
-Secrets are stored locally and ignored by git:
-- secrets/db_root_password.txt
-- secrets/db_password.txt
-- secrets/db_admin_password.txt
-Non‑secret configuration is stored in srcs/.env.
+- Docker and Docker Compose installed on your machine.
+- Git to clone the repository.
 
-## Check services status
-- docker compose -f srcs/docker-compose.yml ps
-- docker compose -f srcs/docker-compose.yml logs -f
+---
+
+#Launch the setup
+
+1. Clone the repository and navigate to the project directory.
+2. Run the following command: make all 
+3. Open yout web browser and go to: https://127.0.0.1 
+4. The Wordpress website should now be accessible.
+
+---
+
+#Other command
+
