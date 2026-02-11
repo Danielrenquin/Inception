@@ -1,0 +1,21 @@
+make -C /home/daniel/Bureau/inception all
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml ps
+Considering log inspection
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml logs --tail=50
+Fixing root password handling in MariaDB setup
+Edited
+setup_mariadb.sh+1-0
+Verifying MariaDB rebuild and restart
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml build mariadb
+
+no such service: mariadb 
+Building and starting MariaDB service
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml build maria_db
+Recreating database container
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml up -d --force-recreate maria_db
+Monitoring logs for updates
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml logs --tail=20 mariadb
+
+no such service: mariadb 
+Clarifying service and container names
+docker compose -f /home/daniel/Bureau/inception/srcs/docker-compose.yml logs --tail=20 maria_db

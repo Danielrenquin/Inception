@@ -4,6 +4,11 @@ set -e
 
 WP_PATH=/var/www/html
 
+if [ -n "${MYSQL_PASSWORD_FILE:-}" ] && [ -f "$MYSQL_PASSWORD_FILE" ]; then
+    MYSQL_PASSWORD=$(cat "$MYSQL_PASSWORD_FILE")
+    export MYSQL_PASSWORD
+fi
+
 echo "Starting WordPress setup..."
 
 # Télécharger WordPress si pas déjà présent (volume persistant)

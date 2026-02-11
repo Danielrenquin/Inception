@@ -1,6 +1,9 @@
-.PHONY: all build up down clean fclean re logs
+.PHONY: all build up down clean fclean re logs prepare
 
-all: build up
+all: prepare build up
+
+prepare:
+	mkdir -p /home/daniel/data/wordpress /home/daniel/data/mariadb
 
 build:
 	docker compose -f srcs/docker-compose.yml build

@@ -2,6 +2,29 @@
 
 set -e
 
+read_secret() {
+    var_name="$1"
+    file_var_name="${var_name}_FILE"
+    file_path="${!file_var_name:-}"
+    if [ -n "$file_path" ] && [ -f "$file_path" ]; then
+        value=$(cat "$file_path")
+        export "$var_name"="$value"
+    fi
+}
+
+read_secret MYSQL_ROOT_PASSWORD
+read_secret MYSQL_PASSWORD
+read_secret MYSQL_ADMIN_PASSWORD
+
+if [ -z "${MYSQL_ADMIN_USER:-}" ]; then
+    MYSQL_ADMIN_USER="wp_manager"
+fi
+
+if [ -z "${MYSQL_ROOT_PASSWORD:-}" ] || [ -z "${MYSQL_PASSWORD:-}" ] || [ -z "${MYSQL_ADMIN_PASSWORD:-}" ]; then
+    echo "Missing required database secrets. Check MYSQL_*_PASSWORD_FILE." >&2
+    exit 1
+fi
+
 # Créer les répertoires nécessaires
 mkdir -p /var/lib/mysql /run/mysqld /var/log/mysql
 chown -R mysql:mysql /var/lib/mysql /run/mysqld /var/log/mysql
@@ -28,7 +51,7 @@ echo "MariaDB is ready"
 ROOT_AUTH=""
 if mysql -u root -e "SELECT 1;" >/dev/null 2>&1; then
     ROOT_AUTH=""
-elif mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "SELECT 1;" >/dev/null 2>&1; then
+elif [ -n "${MYSQL_ROOT_PASSWORD:-}" ] && mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "SELECT 1;" >/dev/null 2>&1; then
     ROOT_AUTH="-p${MYSQL_ROOT_PASSWORD}"
 else
     echo "Unable to authenticate as root. Check MYSQL_ROOT_PASSWORD." >&2
@@ -62,6 +85,7 @@ if ! mysql -u root ${ROOT_AUTH} -e "USE ${MYSQL_DATABASE};" 2>/dev/null; then
         FLUSH PRIVILEGES;
 EOSQL
     echo "Database and users created successfully"
+    ROOT_AUTH="-p${MYSQL_ROOT_PASSWORD}"
 else
     echo "Database ${MYSQL_DATABASE} already exists, skipping creation"
 fi
