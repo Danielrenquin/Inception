@@ -1,9 +1,6 @@
-.PHONY: all build up down clean fclean re logs prepare
+.PHONY: all build up down clean fclean re logs
 
-all: prepare build up
-
-prepare:
-	mkdir -p $(HOME)/data/wordpress $(HOME)/data/mariadb
+all: build up
 
 build:
 	docker compose -f srcs/docker-compose.yml build
@@ -19,7 +16,6 @@ clean: down
 
 fclean: clean
 	docker system prune -af --volumes
-	rm -rf $(HOME)/data/*
 
 re: fclean all
 

@@ -65,17 +65,9 @@ networks:
 volumes:
   wordpress_data:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATA_PATH}/wordpress
 
   db_data:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATA_PATH}/mariadb
 
 secrets:
   db_password:
