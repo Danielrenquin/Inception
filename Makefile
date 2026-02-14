@@ -3,7 +3,7 @@
 all: prepare build up
 
 prepare:
-	mkdir -p /home/daniel/data/wordpress /home/daniel/data/mariadb
+	mkdir -p $(HOME)/data/wordpress $(HOME)/data/mariadb
 
 build:
 	docker compose -f srcs/docker-compose.yml build
@@ -19,6 +19,7 @@ clean: down
 
 fclean: clean
 	docker system prune -af --volumes
+	rm -rf $(HOME)/data/*
 
 re: fclean all
 

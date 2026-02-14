@@ -22,6 +22,11 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD_FILE=${MYSQL_PASSWORD_FILE}
+      - WP_URL=${WP_URL}
+      - WP_TITLE=${WP_TITLE}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PASSWORD_FILE=${WP_ADMIN_PASSWORD_FILE}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
     networks:
       - inception
     volumes:
@@ -30,6 +35,7 @@ services:
       - maria_db
     secrets:
       - db_password
+      - wp_admin_password
     restart: unless-stopped
 
   maria_db:
@@ -78,3 +84,5 @@ secrets:
     file: ../secrets/db_root_password.txt
   db_admin_password:
     file: ../secrets/db_admin_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
