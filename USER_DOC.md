@@ -21,6 +21,3 @@ To use this project, you will need:
 4. The Wordpress website should now be accessible.
 
 ---
-
-#Other command
-
